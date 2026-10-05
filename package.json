@@ -11,5 +11,8 @@
   "engines": {
     "node": ">=21"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  }
 }

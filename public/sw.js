@@ -1,6 +1,6 @@
 // Service Worker：讓 App 可安裝到手機桌面，且離線時仍可看到上次載入的新聞。
-const CACHE = 'ai-news-v1';
-const SHELL = ['/', '/index.html', '/style.css', '/app.js', '/icon.svg', '/manifest.webmanifest'];
+const CACHE = 'ai-news-v2';
+const SHELL = ['/', '/index.html', '/style.css', '/icon.svg', '/manifest.webmanifest', '/js/common.js', '/js/render.js', '/js/news.js', '/js/tools.js', '/js/playbook.js', '/js/studio.js', '/js/main.js'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

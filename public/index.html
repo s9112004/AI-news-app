@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#4f46e5">
-  <meta name="description" content="隨時取得最新 AI 科技新聞：產業動態、研究知識、官方公告、中文媒體">
+  <meta name="description" content="隨時取得最新 AI 新聞、熱門 AI 工具解析，以及 ChatGPT、Claude、Gemini 實用技巧">
   <title>AI 新聞雷達</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -18,51 +18,111 @@
       <h1>AI 新聞雷達</h1>
     </div>
     <div class="actions">
-      <button id="refreshBtn" class="icon-btn" type="button" title="重新抓取最新新聞" aria-label="重新整理">⟳</button>
+      <button id="refreshBtn" class="icon-btn" type="button" title="重新抓取" aria-label="重新整理">⟳</button>
       <button id="statusBtn" class="icon-btn" type="button" title="來源狀態" aria-label="來源狀態">ⓘ</button>
     </div>
   </header>
 
-  <div class="controls">
-    <input id="search" type="search" placeholder="搜尋關鍵字，例如：GPT、Nvidia、agent" autocomplete="off">
-    <nav id="tabs" class="tabs" aria-label="分類">
-      <button type="button" data-cat="" class="active">全部</button>
-      <button type="button" data-cat="industry">產業動態</button>
-      <button type="button" data-cat="research">研究與知識</button>
-      <button type="button" data-cat="official">官方公告</button>
-      <button type="button" data-cat="zh">中文媒體</button>
-      <button type="button" data-cat="saved">★ 收藏</button>
-    </nav>
-  </div>
+  <nav id="views" class="views" aria-label="主選單">
+    <button type="button" data-view="news" class="active">📰 新聞</button>
+    <button type="button" data-view="tools">🔥 工具雷達</button>
+    <button type="button" data-view="playbook">📚 技巧指令庫</button>
+    <button type="button" data-view="studio">✨ AI 工作室</button>
+  </nav>
 
-  <main>
-    <p id="meta" class="meta"></p>
-    <ul id="list" class="list" aria-live="polite"></ul>
-    <p id="empty" class="empty" hidden></p>
-  </main>
+  <!-- 新聞 -->
+  <section id="view-news" class="view">
+    <div class="controls">
+      <input id="newsSearch" type="search" placeholder="搜尋新聞，例如：GPT、Nvidia、agent" autocomplete="off">
+      <div id="newsTabs" class="tabs" role="tablist" aria-label="新聞分類">
+        <button type="button" data-cat="" class="active">全部</button>
+        <button type="button" data-cat="industry">產業動態</button>
+        <button type="button" data-cat="research">研究與知識</button>
+        <button type="button" data-cat="official">官方公告</button>
+        <button type="button" data-cat="zh">中文媒體</button>
+        <button type="button" data-cat="saved">★ 收藏</button>
+      </div>
+    </div>
+    <main class="content">
+      <p id="newsMeta" class="meta"></p>
+      <ul id="newsList" class="list" aria-live="polite"></ul>
+      <p id="newsEmpty" class="empty" hidden></p>
+    </main>
+  </section>
+
+  <!-- 工具雷達 -->
+  <section id="view-tools" class="view" hidden>
+    <div class="controls">
+      <p class="intro">掃描 GitHub 近期竄紅的專案與 Reddit、Hacker News 社群熱議，點「AI 解析用法」就能拿到步驟教學與流程圖。</p>
+      <input id="toolsSearch" type="search" placeholder="搜尋工具，例如：skills、MCP、prompt" autocomplete="off">
+      <div id="toolsTabs" class="tabs" role="tablist" aria-label="工具分類">
+        <button type="button" data-group="" class="active">全部</button>
+        <button type="button" data-group="github">GitHub 熱門專案</button>
+        <button type="button" data-group="community">社群熱議</button>
+      </div>
+    </div>
+    <main class="content">
+      <p id="toolsMeta" class="meta"></p>
+      <ul id="toolsList" class="list"></ul>
+      <p id="toolsEmpty" class="empty" hidden></p>
+    </main>
+  </section>
+
+  <!-- 技巧指令庫 -->
+  <section id="view-playbook" class="view" hidden>
+    <div class="controls">
+      <div id="pbTabs" class="tabs" role="tablist" aria-label="指令庫分類">
+        <button type="button" data-pb="formats" class="active">⚡ 提示詞捷徑</button>
+        <button type="button" data-pb="all">通用技巧</button>
+        <button type="button" data-pb="chatgpt">ChatGPT</button>
+        <button type="button" data-pb="claude">Claude</button>
+        <button type="button" data-pb="gemini">Gemini</button>
+      </div>
+    </div>
+    <main class="content" id="pbContent"></main>
+  </section>
+
+  <!-- AI 工作室 -->
+  <section id="view-studio" class="view" hidden>
+    <main class="content">
+      <form id="studioForm" class="studio-form">
+        <label for="studioTopic">想整理什麼主題？</label>
+        <input id="studioTopic" type="text" maxlength="100" placeholder="例如：電動車、晶片是怎麼做出來的、義大利文點餐對話" required>
+        <div id="studioFormats" class="tabs" role="radiogroup" aria-label="輸出格式">
+          <button type="button" data-format="cheatsheet" class="active">📝 一頁式筆記</button>
+          <button type="button" data-format="blueprint">🧩 主題藍圖</button>
+          <button type="button" data-format="flashcards">🃏 學習卡片</button>
+          <button type="button" data-format="mindmap">🧠 心智圖</button>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">✨ 開始生成</button>
+          <button type="button" id="studioPrint" class="small-btn" hidden>🖨️ 列印／存 PDF</button>
+        </div>
+      </form>
+      <div id="studioResult"></div>
+    </main>
+  </section>
 
   <dialog id="statusDialog">
     <h2>來源狀態</h2>
     <ul id="statusList" class="status-list"></ul>
-    <form method="dialog"><button type="submit">關閉</button></form>
+    <form method="dialog"><button type="submit" class="primary-btn">關閉</button></form>
   </dialog>
 
-  <template id="cardTpl">
-    <li class="card">
-      <div class="card-head">
-        <span class="badge"></span>
-        <span class="source"></span>
-        <time class="time"></time>
-      </div>
-      <a class="title" target="_blank" rel="noopener noreferrer"></a>
-      <p class="summary"></p>
-      <div class="card-actions">
-        <button type="button" class="save-btn">☆ 收藏</button>
-        <button type="button" class="share-btn">分享</button>
-      </div>
-    </li>
-  </template>
+  <dialog id="analysisDialog" class="wide">
+    <div id="analysisBody"></div>
+    <form method="dialog" class="dialog-actions">
+      <button type="button" id="analysisPrint" class="small-btn">🖨️ 列印／存 PDF</button>
+      <button type="submit" class="primary-btn">關閉</button>
+    </form>
+  </dialog>
 
-  <script src="app.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/news.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/playbook.js"></script>
+  <script src="js/studio.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
