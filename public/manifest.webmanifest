@@ -1,0 +1,13 @@
+{
+  "name": "AI 新聞雷達",
+  "short_name": "AI 新聞",
+  "description": "隨時取得最新 AI 科技新聞",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

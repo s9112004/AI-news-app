@@ -1,0 +1,15 @@
+{
+  "name": "ai-news-app",
+  "version": "0.1.0",
+  "description": "隨時取得最新 AI 科技新聞（產業動態、研究知識、官方公告、中文媒體）的聚合 App",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=21"
+  },
+  "license": "MIT"
+}
