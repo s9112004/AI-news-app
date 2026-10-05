@@ -25,6 +25,14 @@
 - 🌙 **深色模式**：跟隨系統設定
 - 📱 **可安裝**：支援 PWA，離線時仍可看到上次載入的內容
 
+## 網頁版（不用安裝）
+
+`node scripts/build-web.js` 會把前端打包成單一 HTML 檔（輸出到 `dist/`），可以發佈成 claude.ai Artifact：
+
+- 技巧指令庫：完整可用
+- AI 工作室：用瀏覽者自己的 Claude 帳號生成，不需要 API 金鑰（第一次使用會詢問是否允許）
+- 新聞、工具雷達：網頁版不能連外網，會顯示如何在電腦上執行完整版
+
 ## 快速開始
 
 需求：[Node.js](https://nodejs.org/) 21 以上。
@@ -104,6 +112,8 @@ src/aggregator.js    抓取、快取、去重、排序、搜尋
 src/toolScanner.js   AI 工具雷達（GitHub 搜尋 API ＋ 社群 RSS）
 src/ai.js            Claude API：工具解析、主題整理
 src/playbook.js      技巧指令庫內容（人工整理）
+src/prompts.js       AI 提示詞與輸出格式（伺服器版與網頁版共用）
+scripts/build-web.js 打包網頁版（單一 HTML）
 public/              前端（HTML / CSS / JS / PWA）
 public/js/render.js  流程圖、筆記、藍圖、卡片、心智圖的繪製
 test/                單元測試

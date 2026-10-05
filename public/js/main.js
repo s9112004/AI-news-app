@@ -53,9 +53,9 @@
   setInterval(() => { if (!document.hidden && current === 'news') App.views.news.load(); }, 15 * 60 * 1000);
 
   const start = (location.hash || '').slice(1);
-  App.showView(App.views[start] ? start : 'news');
+  App.showView(App.views[start] ? start : App.defaultView || 'news');
 
-  if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator && !App.webEdition) {
     window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
   }
 })();
